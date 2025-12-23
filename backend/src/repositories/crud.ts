@@ -1,10 +1,10 @@
 import { Model } from "mongoose"
-import { User } from "../types/user"
+import { IUser, IHotel } from "../types"
 
 export class CrudRepository {
     constructor(private model: Model<any>) { }
 
-    async create(payload: User) {
+    async create(payload: IUser | IHotel) {
         try {
             await this.model.create(payload)
         } catch (error: any) {

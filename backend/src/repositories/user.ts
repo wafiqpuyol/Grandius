@@ -1,4 +1,5 @@
 import { User } from "../models"
+import { IUser } from "../types";
 import { CrudRepository } from "./crud"
 
 class UserRepository extends CrudRepository {
@@ -8,7 +9,7 @@ class UserRepository extends CrudRepository {
 
     async findByEmail(email: string) {
         try {
-            return await User.findOne({ email }).lean()
+            return await User.findOne({ email }).lean();
         } catch (error: any) {
             throw new Error(error)
         }

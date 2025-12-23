@@ -1,8 +1,8 @@
 import mongoose, { Schema } from "mongoose"
-import { User as UserInterface } from "../types/user"
+import { IUser as UserInterface } from "../types"
 
 
-const userSchema = new Schema({
+const userSchema = new Schema<UserInterface>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },

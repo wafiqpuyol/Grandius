@@ -38,15 +38,15 @@ class UserController {
                 userId: result.userId
             }
 
-            res.cookie("access_token", `${result.accessToken}`, { httpOnly: true, secure: process.env.NODE_ENV === "production", maxAge: 15000 })
+            res.cookie("access_token", `${result.accessToken}`, { httpOnly: true, secure: process.env.NODE_ENV === "production", maxAge: 150000 })
             res.cookie("refresh_token", `${result.refreshToken}`, { httpOnly: true, secure: process.env.NODE_ENV === "production", maxAge: 86400000 })
             return res.status(successResponse.statusCode)
                 .json(successResponse);
         } catch (error: any) {
             errorResponse.origin = "authenticateUser() controller method error"
-            if (error.message === "User already exist") {
+            if (error.message === "User does not exist with this email") {
                 errorResponse.message = error.message
-                errorResponse.statusCode = StatusCodes.CONFLICT
+                errorResponse.statusCode = StatusCodes.NOT_ACCEPTABLE
             } else if (error.message === "Invalid email or password") {
                 errorResponse.message = error.message
                 errorResponse.statusCode = StatusCodes.UNAUTHORIZED;

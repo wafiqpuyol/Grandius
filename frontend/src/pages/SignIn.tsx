@@ -16,7 +16,7 @@ const SignIn = () => {
     const { handleSubmit, formState: { errors }, reset, register } = useForm<loginPayload>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            email: "test@gmail.com",
+            email: "test@gmail.co",
             password: "test123"
         }
     })
@@ -35,13 +35,13 @@ const SignIn = () => {
         onError(err) {
             reset();
             if (err instanceof AxiosError) {
-                if (err.response?.status === StatusCodes.CONFLICT)
+                if (err.response?.status === StatusCodes.UNAUTHORIZED)
                     return toast({
                         title: err.response?.data.message,
-                        description: "Please try again with different credentials",
+                        description: "Please try again with different credential.",
                         variant: "destructive"
                     })
-                else if (err.response?.status === StatusCodes.BAD_REQUEST) {
+                else if (err.response?.status === StatusCodes.NOT_ACCEPTABLE) {
                     return toast({
                         title: err.response?.data.message,
                         variant: "destructive"

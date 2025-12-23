@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "./components/ui/toaster";
 import SignIn from "./pages/SignIn";
+import { AddHotel } from "./pages/AddHotel";
 
 const routes = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const routes = createBrowserRouter([
       {
         path: "signin",
         element: <SignIn />
+      },
+      {
+        path: "add-hotels",
+        element: <AddHotel />
       }
     ]
   },

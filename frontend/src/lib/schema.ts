@@ -23,8 +23,24 @@ export const signUpSchema = z.object({
 
 export const loginSchema = z.object({
     email: z.string().email({ message: "Email is required" }),
-    password: z.string().min(1, { message: "Password is required" }),
+    password: z.string().min(2, { message: "Password is required" }),
 });
 
+export const hotelSchema = z.object({
+    name: z.coerce.string({ required_error: "Name field is required", invalid_type_error: "hola" }),
+    city: z.coerce.string({ required_error: "City field is required" }),
+    country: z.coerce.string({ required_error: "Country field is required" }),
+    description: z.coerce.string({ required_error: "Description field is required" }),
+    type: z.coerce.string({ required_error: "Type field is required" }),
+    pricePerNight: z.coerce.number({ required_error: "Price Per Night field is required" }).positive(),
+    starRating: z.coerce.number({ required_error: "StarRating field is required" }),
+    facilities: z.boolean({ required_error: "Please select some facilities" }),
+    // imageUrls: z.string().array().min(1, { message: "At least one facility is required" }),
+    // imageFiles: z.instanceof(FileList),
+    adultCount: z.number(),
+    childCount: z.number(),
+})
+
+export type hotelPayload = z.infer<typeof hotelSchema>
 export type loginPayload = z.infer<typeof loginSchema>
 export type signUpPayload = Zod.infer<typeof signUpSchema>;

@@ -29,6 +29,7 @@ class UserMiddleware {
     validateSignInData(req: Request, res: Response, next: NextFunction) {
         const loginData = loginSchema.safeParse(req.body)
         if (!loginData.success) {
+            errorResponse.origin = "verifyToken() middleware error"
             errorResponse.message = loginData.error.errors[0].message;
             errorResponse.path = loginData.error.errors[0].path;
             errorResponse.statusCode = StatusCodes.UNAUTHORIZED;
@@ -57,6 +58,7 @@ class UserMiddleware {
             } else {
                 errorResponse.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
             }
+            errorResponse.origin = "verifyToken() middleware error"
             return res.status(errorResponse.statusCode).json(errorResponse);
         }
     }

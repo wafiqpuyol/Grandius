@@ -1,12 +1,12 @@
-import { IJwtPayload, User } from "../types/user"
+import { IJwtPayload, IUser } from "../types"
 import { auth } from "../utils/common/auth"
 import { userRepository } from "../repositories"
 
 
 class UserService {
-    async createUser({ email, firstName, lastName, password }: User) {
+    async createUser({ email, firstName, lastName, password }: IUser) {
         try {
-            const isUserExist = await userRepository.findByEmail(email)
+            const isUserExist = await userRepository.findByEmail(email);
             if (isUserExist) {
                 throw new Error("User already exist");
             }
@@ -39,7 +39,7 @@ class UserService {
                 email: isUserExist.email,
                 userName: `${isUserExist.firstName} ${isUserExist.lastName}`
             }
-            const accessToken = auth.generateToken(payload, "15s");
+            const accessToken = auth.generateToken(payload, "15m");
             const refreshToken = auth.generateToken(payload, "1d");
             return { accessToken, refreshToken, userId: payload.id };
         } catch (error: any) {
